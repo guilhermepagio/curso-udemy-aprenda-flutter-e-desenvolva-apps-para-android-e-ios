@@ -23,6 +23,7 @@ class _AuthFormState extends State<AuthForm>
 
   AnimationController? _animationController;
   Animation<double>? _opacityAnimation;
+  Animation<Offset>? _slideAnimation;
 
   bool _isLoading = false;
   bool _isLogin() => _authMode == AuthMode.login;
@@ -39,6 +40,11 @@ class _AuthFormState extends State<AuthForm>
     _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _animationController!, curve: Curves.linear),
     );
+
+    _slideAnimation = Tween<Offset>(begin: Offset(0, -1.5), end: Offset(0, 0))
+        .animate(
+          CurvedAnimation(parent: _animationController!, curve: Curves.linear),
+        );
   }
 
   @override
@@ -161,21 +167,24 @@ class _AuthFormState extends State<AuthForm>
                 curve: Curves.linear,
                 child: FadeTransition(
                   opacity: _opacityAnimation!,
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    validator: _isLogin()
-                        ? null
-                        : (value) {
-                            final password = value ?? '';
+                  child: SlideTransition(
+                    position: _slideAnimation!,
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      validator: _isLogin()
+                          ? null
+                          : (value) {
+                              final password = value ?? '';
 
-                            if (password != _passwordController.text) {
-                              return 'Senhas devem ser iguais!';
-                            }
+                              if (password != _passwordController.text) {
+                                return 'Senhas devem ser iguais!';
+                              }
 
-                            return null;
-                          },
+                              return null;
+                            },
+                    ),
                   ),
                 ),
               ),
