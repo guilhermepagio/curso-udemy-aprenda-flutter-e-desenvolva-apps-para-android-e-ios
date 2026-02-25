@@ -15,24 +15,43 @@ class ProductDetailPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
-      appBar: AppBar(title: Text(product.name)),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child: Image.network(product.imageUrl, fit: BoxFit.cover),
-                ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(product.name),
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Hero(
+                    tag: product.id,
+                    child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                  ),
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0, 0.8),
+                        end: Alignment(0, 0),
+                        colors: [
+                          Color.fromRGBO(0, 0, 0, 0.6),
+                          Color.fromRGBO(0, 0, 0, 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
               SizedBox(height: 10),
               Text(
                 brlFormatter.format(product.price),
                 style: TextStyle(color: Colors.grey, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 10),
               Container(
@@ -40,9 +59,9 @@ class ProductDetailPage extends StatelessWidget {
                 width: double.infinity,
                 child: Text(product.description, textAlign: TextAlign.center),
               ),
-            ],
+            ]),
           ),
-        ),
+        ],
       ),
     );
   }
