@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/utils/custom_route.dart';
 
 class AppTheme {
   // Cores
@@ -20,11 +21,19 @@ class AppTheme {
       titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     );
 
+    final pageTransitionsTheme = PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CustomPageTransitionBuilder(),
+        TargetPlatform.iOS: CustomPageTransitionBuilder(),
+      },
+    );
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: lightThemeColorScheme,
       fontFamily: defaultFontFamily,
       textTheme: lightTextTheme,
+      pageTransitionsTheme: pageTransitionsTheme,
     );
   }
 }

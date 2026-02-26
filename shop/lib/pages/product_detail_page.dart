@@ -22,6 +22,7 @@ class ProductDetailPage extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(product.name),
+              centerTitle: true,
               background: Stack(
                 fit: StackFit.expand,
                 children: [
