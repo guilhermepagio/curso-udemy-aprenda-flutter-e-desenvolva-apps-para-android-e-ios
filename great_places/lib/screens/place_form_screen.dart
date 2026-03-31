@@ -22,8 +22,8 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   void _submitForm() {
-    bool _isValid = _titleController.text.isNotEmpty && _pickedImage != null;
-    if (!_isValid) {
+    bool isValid = _titleController.text.isNotEmpty && _pickedImage != null;
+    if (!isValid) {
       return;
     }
 

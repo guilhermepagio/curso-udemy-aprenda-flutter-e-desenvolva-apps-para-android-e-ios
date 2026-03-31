@@ -1,3 +1,13 @@
+import java.util.Properties
+import java.io.FileInputStream
+
+// 1. Lógica para carregar o arquivo .env
+val dotenv = Properties()
+val dotenvFile = project.rootProject.file("../.env")
+if (dotenvFile.exists()) {
+    dotenvFile.inputStream().use { dotenv.load(it) }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -28,6 +38,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // 2. Injetando a chave do .env para o Manifesto
+        val googleMapsKey = dotenv.getProperty("GOOGLE_MAPS_API_KEY") ?: ""
+        manifestPlaceholders["googleMapsApiKey"] = googleMapsKey
     }
 
     buildTypes {
