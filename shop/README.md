@@ -1,8 +1,4 @@
-# Shop App (Minha Loja)
-
-![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
-![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
-![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
+# Shop 👜
 
 Uma aplicação de e-commerce completa desenvolvida em Flutter, focada em fornecer uma experiência de compra fluida com gerenciamento de estado avançado e integração com Firebase.
 
@@ -37,13 +33,13 @@ O **Shop App** é um projeto desenvolvido para demonstrar o poder do Flutter no 
 
 ### Passo a passo
 1. Clone este repositório.
-2. Execute `flutter pub get` para instalar as dependências.
-3. Crie um arquivo `.env` na raiz do projeto com a seguinte chave:
+1. Execute `flutter pub get` para instalar as dependências.
+1. Crie um arquivo `.env` na raiz do projeto com a seguinte chave:
    ```env
    FIREBASE_WEB_API_KEY=SUA_CHAVE_AQUI
    ```
-4. Configure as URLs do seu Firebase Realtime Database no arquivo `lib/utils/constants.dart`.
-5. Execute o app com `flutter run`.
+1. Configure as URLs do seu Firebase Realtime Database no arquivo `lib/utils/constants.dart`.
+1. Execute utilizando a IDE de sua preferência.
 
 ## ⚠️ Pontos de Atenção
 
@@ -52,4 +48,5 @@ O **Shop App** é um projeto desenvolvido para demonstrar o poder do Flutter no 
 3. **Fonts:** O projeto utiliza as fontes **Lato** e **Anton**. Verifique se os arquivos `.ttf` estão corretamente localizados na pasta `assets/fonts/`.
 
 ---
-Desenvolvido como parte do curso de Flutter para aprendizado de padrões de projeto e integrações externas.
+
+Este projeto faz parte de uma jornada de aprendizado em desenvolvimento mobile com Flutter.
