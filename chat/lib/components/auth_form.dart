@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import '../models/auth_form_data.dart';
+import 'package:chat/components/user_image_picker.dart';
+import 'package:chat/core/models/auth_form_data.dart';
+import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(AuthFormData) onSubmit;
@@ -17,13 +19,32 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _submitForm() {
-    final isValid = _formKey.currentState?.validate() ?? false;
+    final bool isFieldsValid = _formKey.currentState?.validate() ?? false;
+    final bool isImageValid =
+        _authFormData.isLogin || _authFormData.image != null;
 
-    if (!isValid) {
+    if (!isImageValid) {
+      _showError('Por favor, selecione uma imagem de perfil.');
+      return;
+    }
+
+    if (!isFieldsValid) {
+      _showError('Por favor, preencha todos os campos corretamente.');
       return;
     }
 
     widget.onSubmit(_authFormData);
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void _handleImagePick(File image) {
+    _authFormData.image = image;
   }
 
   @override
@@ -40,18 +61,23 @@ class _AuthFormState extends State<AuthForm> {
                 AnimatedSize(
                   duration: const Duration(milliseconds: 150),
                   child: _authFormData.isSignup
-                      ? TextFormField(
-                          key: ValueKey('name'),
-                          initialValue: _authFormData.name,
-                          onChanged: (name) => _authFormData.name = name,
-                          decoration: InputDecoration(label: Text('Nome')),
-                          validator: (value) {
-                            final name = value ?? '';
-                            if (name.trim().length < 5) {
-                              return 'Nome deve ter no mínimo 5 caracteres';
-                            }
-                            return null;
-                          },
+                      ? Column(
+                          children: [
+                            UserImagePicker(onImagePick: _handleImagePick),
+                            TextFormField(
+                              key: ValueKey('name'),
+                              initialValue: _authFormData.name,
+                              onChanged: (name) => _authFormData.name = name,
+                              decoration: InputDecoration(label: Text('Nome')),
+                              validator: (value) {
+                                final name = value ?? '';
+                                if (name.trim().length < 5) {
+                                  return 'Nome deve ter no mínimo 5 caracteres';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
                         )
                       : const SizedBox.shrink(),
                 ),

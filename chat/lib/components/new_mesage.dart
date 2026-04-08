@@ -1,0 +1,10 @@
+import 'package:flutter/material.dart';
+
+class NewMesage extends StatelessWidget {
+  const NewMesage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text("Nova Mensagem"));
+  }
+}
