@@ -1,5 +1,5 @@
 import 'package:chat/components/messages.dart';
-import 'package:chat/components/new_mesage.dart';
+import 'package:chat/components/new_message.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -41,11 +41,14 @@ class ChatPage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: Messages()),
-            NewMesage(),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Column(
+            children: [
+              Expanded(child: Messages()),
+              const NewMessage(),
+            ],
+          ),
         ),
       ),
     );
