@@ -48,7 +48,7 @@ class AuthFirebaseService implements AuthService {
     if (userCredential.user == null) return;
 
     await userCredential.user!.updateDisplayName(name);
-    final chatUser = _mapFirebaseUserToChatUser(userCredential.user);
+    final chatUser = _mapFirebaseUserToChatUser(userCredential.user, name);
     await _saveChatUser(chatUser);
   }
 
@@ -78,12 +78,12 @@ class AuthFirebaseService implements AuthService {
     });
   }
 
-  static ChatUser? _mapFirebaseUserToChatUser(User? user) {
+  static ChatUser? _mapFirebaseUserToChatUser(User? user, [String? name]) {
     if (user == null) return null;
 
     return ChatUser(
       id: user.uid,
-      name: user.displayName ?? user.email?.split('@').first ?? '',
+      name: name ?? user.displayName ?? user.email?.split('@').first ?? '',
       email: user.email ?? '',
       imageUrl: user.photoURL ?? 'assets/images/avatar.png',
     );
